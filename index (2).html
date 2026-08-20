@@ -1,0 +1,4454 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<meta name="theme-color" content="#080a0f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<link rel="manifest" href="manifest.json">
+
+<title>PHILOSOPHER Mobile</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+    --bg:#080a0f;
+    --panel:#11151d;
+    --panel2:#181d26;
+    --border:#292f3a;
+    --text:#f4f4f4;
+    --muted:#8e96a5;
+    --gold:#d8ad58;
+    --gold2:#f1d27f;
+    --green:#65d49d;
+    --red:#e27676;
+    --blue:#76a9e8;
+}
+
+body.light{
+    --bg:#eef1f5;
+    --panel:#ffffff;
+    --panel2:#f5f6f8;
+    --border:#dce1e8;
+    --text:#17191d;
+    --muted:#68717e;
+}
+
+html,body{
+    margin:0;
+    min-height:100%;
+    background:var(--bg);
+    color:var(--text);
+    font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+button,
+input,
+textarea,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* =========================
+LOGIN
+========================= */
+
+.login{
+    min-height:100vh;
+    min-height:100dvh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    background:
+        radial-gradient(
+            circle at center,
+            #d8ad5818,
+            transparent 48%
+        ),
+        var(--bg);
+}
+
+.login-box{
+    width:100%;
+    max-width:430px;
+    padding:30px 22px;
+    border:1px solid var(--border);
+    border-radius:26px;
+    background:var(--panel);
+    box-shadow:0 30px 100px #0009;
+    text-align:center;
+}
+
+.logo{
+    width:76px;
+    height:76px;
+    margin:auto;
+    display:grid;
+    place-items:center;
+    border-radius:22px;
+    background:
+        linear-gradient(
+            135deg,
+            var(--gold2),
+            #76521c
+        );
+    color:#111;
+    font:44px Georgia;
+}
+
+.login h1{
+    margin:15px 0 3px;
+    letter-spacing:4px;
+}
+
+.login p{
+    color:var(--muted);
+    font-size:10px;
+    line-height:2;
+}
+
+.input,
+input,
+textarea,
+select{
+    width:100%;
+    padding:13px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:var(--panel2);
+    color:var(--text);
+    outline:none;
+}
+
+.login input{
+    margin-top:9px;
+}
+
+.btn{
+    border:0;
+    border-radius:12px;
+    padding:12px 16px;
+    background:
+        linear-gradient(
+            135deg,
+            var(--gold2),
+            #98702d
+        );
+    color:#171209;
+    font-weight:bold;
+}
+
+.btn.secondary{
+    background:var(--panel2);
+    border:1px solid var(--border);
+    color:var(--text);
+}
+
+.btn.danger{
+    background:transparent;
+    border:1px solid var(--red);
+    color:#ff9999;
+}
+
+.btn:active{
+    transform:scale(.96);
+}
+
+/* =========================
+APP
+========================= */
+
+#app{
+    min-height:100vh;
+}
+
+/* DESKTOP SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    right:0;
+    top:0;
+    bottom:0;
+    width:250px;
+    padding:15px 11px;
+    overflow-y:auto;
+    background:#0c1017ee;
+    border-left:1px solid var(--border);
+    backdrop-filter:blur(18px);
+    z-index:50;
+}
+
+body.light .sidebar{
+    background:#fffffff2;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:6px 7px 17px;
+}
+
+.phi{
+    width:44px;
+    height:44px;
+    display:grid;
+    place-items:center;
+    border-radius:13px;
+    background:
+        linear-gradient(
+            135deg,
+            var(--gold2),
+            #76521c
+        );
+    color:#111;
+    font:26px Georgia;
+}
+
+.brand b{
+    font-size:12px;
+    letter-spacing:2px;
+}
+
+.brand small{
+    display:block;
+    margin-top:4px;
+    color:var(--muted);
+    font-size:8px;
+}
+
+.user{
+    color:var(--muted);
+    font-size:10px;
+    padding:0 8px 14px;
+}
+
+.user strong{
+    color:var(--gold2);
+}
+
+.menu-title{
+    color:var(--muted);
+    font-size:9px;
+    padding:10px 8px 5px;
+}
+
+.menu button{
+    width:100%;
+    padding:11px;
+    margin:2px 0;
+    border:0;
+    border-radius:10px;
+    background:transparent;
+    color:var(--muted);
+    text-align:right;
+}
+
+.menu button.active,
+.menu button:hover{
+    background:var(--panel2);
+    color:var(--gold2);
+}
+
+/* MAIN */
+
+main{
+    width:calc(100% - 250px);
+    margin-right:250px;
+    padding:20px;
+    min-height:100vh;
+}
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.top h1{
+    margin:0;
+    font-size:23px;
+}
+
+.sub{
+    margin-top:5px;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.clock{
+    color:var(--gold2);
+    font-weight:bold;
+}
+
+/* SEARCH */
+
+.search{
+    display:flex;
+    gap:8px;
+    margin-bottom:15px;
+}
+
+.search .input{
+    flex:1;
+}
+
+/* PAGES */
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.card{
+    padding:17px;
+    margin-bottom:14px;
+    border:1px solid var(--border);
+    border-radius:18px;
+    background:
+        linear-gradient(
+            145deg,
+            var(--panel),
+            var(--panel2)
+        );
+}
+
+.head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:13px;
+}
+
+.head h3{
+    margin:0;
+    font-size:14px;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:
+        repeat(6,minmax(0,1fr));
+    gap:9px;
+}
+
+.stat{
+    padding:14px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    background:var(--panel);
+}
+
+.stat b{
+    display:block;
+    margin-top:7px;
+    font-size:23px;
+}
+
+.stat span{
+    color:var(--muted);
+    font-size:9px;
+}
+
+/* GRID */
+
+.grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:13px;
+    margin-top:13px;
+}
+
+/* QUOTE */
+
+.quote{
+    min-height:300px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.quote-mark{
+    color:var(--gold);
+    opacity:.25;
+    font:80px Georgia;
+}
+
+.quote-text{
+    max-width:700px;
+    font-size:20px;
+    line-height:2;
+}
+
+.author{
+    margin-top:12px;
+    color:var(--gold);
+}
+
+/* NOTES */
+
+.notes{
+    display:grid;
+    gap:9px;
+}
+
+.note{
+    padding:14px;
+    border:1px solid var(--border);
+    border-radius:13px;
+    cursor:pointer;
+    background:var(--panel);
+}
+
+.note:active{
+    transform:scale(.99);
+}
+
+.note-title{
+    font-weight:bold;
+    font-size:13px;
+}
+
+.note-preview{
+    margin-top:6px;
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.9;
+}
+
+.note-meta{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:7px;
+    margin-top:9px;
+    color:var(--muted);
+    font-size:8px;
+}
+
+/* CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(210px,1fr));
+    gap:10px;
+}
+
+.dream,
+.goal-card,
+.future-card{
+    padding:15px;
+    border:1px solid var(--border);
+    border-radius:15px;
+    background:var(--panel);
+}
+
+.dream p,
+.goal-card p,
+.future-card p{
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.9;
+}
+
+.progress{
+    height:7px;
+    margin:9px 0;
+    border-radius:20px;
+    overflow:hidden;
+    background:var(--border);
+}
+
+.progress i{
+    display:block;
+    height:100%;
+    background:
+        linear-gradient(
+            90deg,
+            var(--gold),
+            var(--gold2)
+        );
+}
+
+/* FORM */
+
+.field{
+    margin-bottom:13px;
+}
+
+.field label{
+    display:block;
+    margin-bottom:6px;
+    color:var(--muted);
+    font-size:10px;
+}
+
+textarea{
+    resize:vertical;
+    min-height:130px;
+}
+
+/* MIND MAP */
+
+.mind{
+    position:relative;
+    height:470px;
+    overflow:hidden;
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:
+        radial-gradient(
+            circle,
+            #d8ad5510,
+            transparent 60%
+        );
+}
+
+.node{
+    position:absolute;
+    transform:translate(-50%,-50%);
+    padding:10px 15px;
+    border:1px solid var(--gold);
+    border-radius:30px;
+    background:var(--panel2);
+    color:var(--gold2);
+    white-space:nowrap;
+    user-select:none;
+    z-index:2;
+}
+
+.link{
+    position:absolute;
+    height:1px;
+    background:#d8ad5550;
+    transform-origin:0 50%;
+    z-index:1;
+}
+
+/* TIMELINE */
+
+.timeline{
+    padding-right:18px;
+    border-right:2px solid var(--gold);
+}
+
+.event{
+    position:relative;
+    padding:13px;
+    margin-bottom:18px;
+    border:1px solid var(--border);
+    border-radius:12px;
+}
+
+.event:before{
+    content:"";
+    position:absolute;
+    right:-24px;
+    top:18px;
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--gold);
+}
+
+.event small{
+    color:var(--muted);
+}
+
+/* STORY */
+
+.story{
+    max-width:900px;
+    margin:auto;
+    line-height:2.3;
+}
+
+.story-line{
+    padding:18px;
+    margin:10px 0;
+    border-right:2px solid var(--gold);
+    border-radius:0 15px 15px 0;
+    background:var(--panel2);
+}
+
+.story-line h3{
+    color:var(--gold2);
+}
+
+/* ACHIEVEMENTS */
+
+.badges{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(160px,1fr));
+    gap:10px;
+}
+
+.badge{
+    padding:15px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    opacity:.35;
+}
+
+.badge.active{
+    opacity:1;
+    border-color:var(--gold);
+}
+
+.badge strong{
+    display:block;
+    margin-top:7px;
+}
+
+.badge small{
+    color:var(--muted);
+}
+
+/* TIMER */
+
+.timer{
+    text-align:center;
+}
+
+.timer-display{
+    margin:30px;
+    color:var(--gold2);
+    font-size:70px;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    padding:15px;
+    background:#000b;
+    backdrop-filter:blur(7px);
+    z-index:200;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:760px;
+    max-width:100%;
+    max-height:90vh;
+    overflow:auto;
+    padding:20px;
+    border:1px solid var(--border);
+    border-radius:20px;
+    background:var(--panel);
+}
+
+.close{
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    font-size:25px;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    left:15px;
+    bottom:15px;
+    max-width:calc(100% - 30px);
+    padding:12px 16px;
+    border-radius:11px;
+    background:#151a22;
+    color:#fff;
+    opacity:0;
+    transform:translateY(15px);
+    transition:.2s;
+    z-index:500;
+}
+
+.toast.show{
+    opacity:1;
+    transform:none;
+}
+
+/* MOBILE BOTTOM NAV */
+
+.mobile-nav{
+    display:none;
+}
+
+/* MOBILE */
+
+@media(max-width:720px){
+
+    body{
+        padding-bottom:76px;
+    }
+
+    .sidebar{
+        display:none;
+    }
+
+    main{
+        width:100%;
+        margin:0;
+        padding:13px;
+    }
+
+    .top{
+        align-items:flex-start;
+    }
+
+    .top h1{
+        font-size:20px;
+    }
+
+    .clock{
+        font-size:11px;
+    }
+
+    .search{
+        flex-wrap:wrap;
+    }
+
+    .search .input{
+        width:100%;
+        flex:none;
+    }
+
+    .search .btn{
+        flex:1;
+    }
+
+    .stats{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .quote{
+        min-height:260px;
+    }
+
+    .quote-text{
+        font-size:17px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .mind{
+        height:400px;
+    }
+
+    .timer-display{
+        font-size:55px;
+    }
+
+    .mobile-nav{
+        position:fixed;
+        display:grid;
+        grid-template-columns:
+            repeat(5,1fr);
+        left:8px;
+        right:8px;
+        bottom:8px;
+        padding:6px;
+        border:1px solid var(--border);
+        border-radius:19px;
+        background:#11151df5;
+        backdrop-filter:blur(18px);
+        z-index:100;
+        box-shadow:0 10px 40px #0008;
+    }
+
+    body.light .mobile-nav{
+        background:#ffffffee;
+    }
+
+    .mobile-nav button{
+        border:0;
+        background:transparent;
+        color:var(--muted);
+        padding:9px 3px;
+        border-radius:13px;
+        font-size:9px;
+    }
+
+    .mobile-nav button.active{
+        color:var(--gold2);
+        background:var(--panel2);
+    }
+}
+
+@media(min-width:721px){
+
+    .mobile-nav{
+        display:none!important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<div id="loginPage" class="login">
+
+<div class="login-box">
+
+<div class="logo">Φ</div>
+
+<h1>PHILOSOPHER</h1>
+
+<p>DIGITAL MIND • MOBILE 1.0</p>
+
+<p>
+دفتر دیجیتال ذهن، آرزوها، اهداف و داستان زندگی
+</p>
+
+<input
+    id="username"
+    placeholder="نام شما"
+    maxlength="30"
+>
+
+<input
+    id="password"
+    type="password"
+    placeholder="رمز عبور — اختیاری"
+>
+
+<button
+    class="btn"
+    style="width:100%;margin-top:10px"
+    onclick="login()"
+>
+ورود به دفتر
+</button>
+
+<p>
+هر نام یک دفتر جداگانه دارد.
+<br>
+اگر برای حساب رمز تعیین شود، ورود بعدی به رمز نیاز دارد.
+</p>
+
+</div>
+</div>
+
+
+<!-- ================= APP ================= -->
+
+<div id="app" class="hidden">
+
+<aside class="sidebar">
+
+<div class="brand">
+
+<div class="phi">Φ</div>
+
+<div>
+<b>PHILOSOPHER</b>
+<small>MOBILE • PWA</small>
+</div>
+
+</div>
+
+<div class="user">
+کاربر:
+<strong id="currentUser"></strong>
+</div>
+
+<div class="menu-title">دفتر</div>
+
+<div class="menu">
+
+<button class="active" onclick="showPage('home',this)">
+🏛️ داشبورد
+</button>
+
+<button onclick="showPage('notes',this)">
+📖 نوشته‌ها
+</button>
+
+<button onclick="showPage('hiddenNotes',this)">
+🔐 نوشته‌های مخفی
+</button>
+
+<button onclick="showPage('journal',this)">
+✍️ دفتر روزانه
+</button>
+
+<button onclick="showPage('dreams',this)">
+✨ آرزوها
+</button>
+
+<button onclick="showPage('goals',this)">
+🎯 اهداف
+</button>
+
+</div>
+
+<div class="menu-title">ذهن و زندگی</div>
+
+<div class="menu">
+
+<button onclick="showPage('mind',this)">
+🧠 ذهن من
+</button>
+
+<button onclick="showPage('timeline',this)">
+🕰️ Timeline
+</button>
+
+<button onclick="showPage('story',this)">
+📜 داستان من
+</button>
+
+<button onclick="showPage('future',this)">
+🌌 آینده من
+</button>
+
+<button onclick="showPage('letter',this)">
+💌 نامه به آینده
+</button>
+
+</div>
+
+<div class="menu-title">ابزار</div>
+
+<div class="menu">
+
+<button onclick="showPage('philosophers',this)">
+🗿 فیلسوفان
+</button>
+
+<button onclick="showPage('statistics',this)">
+📊 آمار
+</button>
+
+<button onclick="showPage('achievements',this)">
+🏆 دستاوردها
+</button>
+
+<button onclick="showPage('timer',this)">
+⏳ تایمر تفکر
+</button>
+
+</div>
+
+<div class="menu-title">سیستم</div>
+
+<div class="menu">
+
+<button onclick="toggleTheme()">
+🌙 / ☀️ شب و روز
+</button>
+
+<button onclick="openSettings()">
+⚙️ تنظیمات
+</button>
+
+<button onclick="backup()">
+📤 Backup
+</button>
+
+<button onclick="document.getElementById('restoreFile').click()">
+📥 Restore
+</button>
+
+<button onclick="logout()">
+🚪 خروج
+</button>
+
+</div>
+
+<input
+    id="restoreFile"
+    type="file"
+    accept=".json"
+    hidden
+    onchange="restore(event)"
+>
+
+</aside>
+
+
+<main>
+
+<div class="top">
+
+<div>
+
+<h1 id="pageTitle">
+دفتر ذهن من
+</h1>
+
+<div id="dateText" class="sub"></div>
+
+</div>
+
+<div id="clock" class="clock"></div>
+
+</div>
+
+
+<div class="search">
+
+<input
+    id="search"
+    class="input"
+    placeholder="جست‌وجو..."
+    oninput="renderSearch()"
+>
+
+<button class="btn" onclick="openNote()">
++ نوشته
+</button>
+
+<button class="btn secondary" onclick="openDream()">
++ آرزو
+</button>
+
+</div>
+
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+<div class="stats">
+
+<div class="stat">
+📖
+<b id="statNotes">0</b>
+<span>نوشته</span>
+</div>
+
+<div class="stat">
+✨
+<b id="statDreams">0</b>
+<span>آرزوی فعال</span>
+</div>
+
+<div class="stat">
+🏆
+<b id="statDoneDreams">0</b>
+<span>آرزوی محقق‌شده</span>
+</div>
+
+<div class="stat">
+🎯
+<b id="statGoals">0</b>
+<span>هدف</span>
+</div>
+
+<div class="stat">
+⭐
+<b id="statFavorites">0</b>
+<span>منتخب</span>
+</div>
+
+<div class="stat">
+🔥
+<b id="statDays">0</b>
+<span>روز فعال</span>
+</div>
+
+</div>
+
+
+<div class="grid">
+
+<div class="card">
+
+<div class="head">
+
+<h3>💭 اندیشه امروز</h3>
+
+<button
+    class="btn secondary"
+    onclick="nextQuote()"
+>
+بعدی
+</button>
+
+</div>
+
+<div class="quote">
+
+<div class="quote-mark">“</div>
+
+<div id="quoteText" class="quote-text"></div>
+
+<div id="quoteAuthor" class="author"></div>
+
+</div>
+
+</div>
+
+
+<div>
+
+<div class="card">
+
+<div class="head">
+
+<h3>✨ آرزوی امروز</h3>
+
+</div>
+
+<div id="todayDream"></div>
+
+</div>
+
+
+<div class="card">
+
+<div class="head">
+
+<h3>📝 آخرین نوشته‌ها</h3>
+
+</div>
+
+<div id="recentNotes"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- NOTES -->
+
+<section id="notes" class="page">
+
+<div class="card">
+
+<div class="head">
+
+<h3>📖 نوشته‌های من</h3>
+
+<button class="btn" onclick="openNote()">
++ نوشته جدید
+</button>
+
+</div>
+
+<div id="allNotes" class="notes"></div>
+
+</div>
+
+</section>
+
+
+<!-- HIDDEN -->
+
+<section id="hiddenNotes" class="page">
+
+<div class="card">
+
+<div class="head">
+
+<h3>🔐 نوشته‌های مخفی</h3>
+
+<span class="sub">
+مخفی شده‌اند، حذف نشده‌اند.
+</span>
+
+</div>
+
+<div id="allHiddenNotes" class="notes"></div>
+
+</div>
+
+</section>
+
+
+<!-- JOURNAL -->
+
+<section id="journal" class="page">
+
+<div class="card">
+
+<div class="head">
+
+<h3>✍️ دفتر روزانه</h3>
+
+</div>
+
+<div class="field">
+
+<label>
+امروز چه چیزی در ذهن توست؟
+</label>
+
+<textarea
+    id="journalText"
+    placeholder="امروز بنویس..."
+></textarea>
+
+</div>
+
+<button class="btn" onclick="saveJournal()">
+ذخیره روز
+</button>
+
+</div>
+
+</section>
+
+
+<!-- DREAMS -->
+
+<section id="dreams" class="page">
+
+<div class="card">
+
+<div class="head">
+
+<h3>✨ آرزوهای من</h3>
+
+<button class="btn" onclick="openDream()">
++ آرزوی جدید
+</button>
+
+</div>
+
+<p class="sub">
+آرزو را ثبت کن، مسیرش را بساز و پیشرفتش را مدیریت کن.
+</p>
+
+<div id="dreamList" class="cards"></div>
+
+</div>
+
+<div class="card">
+
+<div class="head">
+<h3>🏆 آرزوهای محقق‌شده</h3>
+</div>
+
+<div id="completedDreams" class="cards"></div>
+
+</div>
+
+</section>
+
+
+<!-- GOALS -->
+
+<section id="goals" class="page">
+
+<div class="card">
+
+<div class="head">
+
+<h3>🎯 اهداف من</h3>
+
+<button class="btn" onclick="addGoal()">
++ هدف
+</button>
+
+</div>
+
+<div id="goalList"></div>
+
+</div>
+
+</section>
+
+
+<!-- MIND -->
+
+<section id="mind" class="page">
+
+<div class="card">
+
+<div class="head">
+
+<h3>🧠 ذهن من</h3>
+
+<button
+    class="btn secondary"
+    onclick="buildMindMap()"
+>
+بازسازی
+</button>
+
+</div>
+
+<div id="mindMap" class="mind"></div>
+
+<p class="sub">
+این نقشه از نوشته‌ها، تگ‌ها، آرزوها و اهداف تو ساخته می‌شود.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- TIMELINE -->
+
+<section id="timeline" class="page">
+
+<div class="card">
+
+<div class="head">
+
+<h3>🕰️ Timeline زندگی</h3>
+
+<button class="btn" onclick="addEvent()">
++ اتفاق
+</button>
+
+</div>
+
+<div id="timelineList" class="timeline"></div>
+
+</div>
+
+</section>
+
+
+<!-- STORY -->
+
+<section id="story" class="page">
+
+<div class="card">
+
+<div class="head">
+
+<h3>📜 داستان من</h3>
+
+<button
+    class="btn secondary"
+    onclick="buildStory()"
+>
+بازسازی داستان
+</button>
+
+</div>
+
+<div id="storyContent" class="story"></div>
+
+</div>
+
+</section>
+
+
+<!-- FUTURE -->
+
+<section id="future" class="page">
+
+<div class="card">
+
+<div class="head">
+
+<h3>🌌 آینده من</h3>
+
+</div>
+
+<div id="futureContent"></div>
+
+</div>
+
+</section>
+
+
+<!-- LETTER -->
+
+<section id="letter" class="page">
+
+<div class="card">
+
+<div class="head">
+
+<h3>💌 نامه به آینده</h3>
+
+<button class="btn" onclick="saveFutureLetter()">
+ذخیره
+</button>
+
+</div>
+
+<div class="field">
+
+<label>
+عنوان نامه
+</label>
+
+<input
+    id="letterTitle"
+    placeholder="برای منِ آینده..."
+>
+
+</div>
+
+<div class="field">
+
+<label>
+نامه
+</label>
+
+<textarea
+    id="futureLetter"
+    style="min-height:350px"
+    placeholder="اگر داری این نامه را در آینده می‌خوانی..."
+></textarea>
+
+</div>
+
+<div class="field">
+
+<label>
+تاریخ باز شدن
+</label>
+
+<input
+    id="letterDate"
+    type="date"
+>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PHILOSOPHERS -->
+
+<section id="philosophers" class="page">
+
+<div class="card">
+
+<div class="head">
+<h3>🗿 فیلسوفان</h3>
+</div>
+
+<div id="philosopherList" class="cards"></div>
+
+</div>
+
+</section>
+
+
+<!-- STATISTICS -->
+
+<section id="statistics" class="page">
+
+<div class="card">
+
+<div class="head">
+<h3>📊 آمار زندگی دیجیتال</h3>
+</div>
+
+<canvas
+    id="chart"
+    width="900"
+    height="350"
+    style="max-width:100%"
+></canvas>
+
+</div>
+
+</section>
+
+
+<!-- ACHIEVEMENTS -->
+
+<section id="achievements" class="page">
+
+<div class="card">
+
+<div class="head">
+<h3>🏆 دستاوردها</h3>
+</div>
+
+<div id="achievementList" class="badges"></div>
+
+</div>
+
+</section>
+
+
+<!-- TIMER -->
+
+<section id="timer" class="page">
+
+<div class="card timer">
+
+<h3>⏳ تایمر تفکر</h3>
+
+<div id="timerDisplay" class="timer-display">
+10:00
+</div>
+
+<button class="btn" onclick="startTimer()">
+شروع
+</button>
+
+<button class="btn secondary" onclick="resetTimer()">
+ریست
+</button>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- MOBILE NAV -->
+
+<nav class="mobile-nav">
+
+<button class="active" onclick="mobilePage('home',this)">
+🏠<br>خانه
+</button>
+
+<button onclick="mobilePage('notes',this)">
+📖<br>نوشته
+</button>
+
+<button onclick="mobilePage('dreams',this)">
+✨<br>آرزو
+</button>
+
+<button onclick="mobilePage('mind',this)">
+🧠<br>ذهن
+</button>
+
+<button onclick="mobilePage('future',this)">
+🌌<br>آینده
+</button>
+
+</nav>
+
+</div>
+
+
+<!-- ================= NOTE MODAL ================= -->
+
+<div id="noteModal" class="modal">
+
+<div class="modal-box">
+
+<div class="head">
+
+<h3>✍️ نوشته جدید</h3>
+
+<button
+    class="close"
+    onclick="closeModal('noteModal')"
+>
+×
+</button>
+
+</div>
+
+<div class="field">
+
+<label>عنوان</label>
+
+<input id="noteTitle">
+
+</div>
+
+<div class="field">
+
+<label>دسته</label>
+
+<select id="noteCategory">
+
+<option>فلسفه</option>
+<option>زندگی</option>
+<option>عشق</option>
+<option>ایده</option>
+<option>شخصی</option>
+<option>رویا</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>تگ‌ها</label>
+
+<input
+    id="noteTags"
+    placeholder="فلسفه, زندگی, عشق"
+>
+
+</div>
+
+<div class="field">
+
+<label>متن</label>
+
+<textarea id="noteText"></textarea>
+
+</div>
+
+<button class="btn" onclick="saveNote()">
+ذخیره نوشته
+</button>
+
+</div>
+</div>
+
+
+<!-- ================= DREAM MODAL ================= -->
+
+<div id="dreamModal" class="modal">
+
+<div class="modal-box">
+
+<div class="head">
+
+<h3 id="dreamModalTitle">
+✨ آرزوی جدید
+</h3>
+
+<button
+    class="close"
+    onclick="closeModal('dreamModal')"
+>
+×
+</button>
+
+</div>
+
+<div class="field">
+
+<label>عنوان آرزو</label>
+
+<input id="dreamTitle">
+
+</div>
+
+<div class="field">
+
+<label>تاریخ هدف</label>
+
+<input id="dreamDate" type="date">
+
+</div>
+
+<div class="field">
+
+<label>چرا این آرزو مهم است؟</label>
+
+<textarea id="dreamDescription"></textarea>
+
+</div>
+
+<div class="field">
+
+<label>
+پیشرفت:
+<b id="progressValue">0</b>%
+</label>
+
+<input
+    id="dreamProgress"
+    type="range"
+    min="0"
+    max="100"
+    value="0"
+    oninput="progressValue.textContent=this.value"
+>
+
+</div>
+
+<button class="btn" onclick="saveDream()">
+ذخیره آرزو
+</button>
+
+</div>
+</div>
+
+
+<!-- ================= SETTINGS ================= -->
+
+<div id="settingsModal" class="modal">
+
+<div class="modal-box">
+
+<div class="head">
+
+<h3>⚙️ تنظیمات</h3>
+
+<button
+    class="close"
+    onclick="closeModal('settingsModal')"
+>
+×
+</button>
+
+</div>
+
+<div class="field">
+
+<label>نام دفتر</label>
+
+<input id="bookTitle">
+
+</div>
+
+<div class="field">
+
+<label>رنگ اصلی</label>
+
+<select id="accentColor">
+
+<option value="gold">طلایی</option>
+<option value="blue">آبی</option>
+<option value="green">سبز</option>
+<option value="red">قرمز</option>
+
+</select>
+
+</div>
+
+<hr style="border-color:var(--border)">
+
+<h3>🔐 امنیت</h3>
+
+<div class="field">
+
+<label>رمز جدید</label>
+
+<input
+    id="newPassword"
+    type="password"
+    placeholder="خالی = بدون رمز"
+>
+
+</div>
+
+<button class="btn" onclick="changePassword()">
+ذخیره رمز
+</button>
+
+<button
+    class="btn danger"
+    onclick="removePassword()"
+>
+حذف رمز
+</button>
+
+<br><br>
+
+<button class="btn" onclick="saveSettings()">
+ذخیره تنظیمات
+</button>
+
+</div>
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/* =====================================================
+PHILOSOPHER MOBILE 1.0
+DATABASE
+===================================================== */
+
+const KEY="PHILOSOPHER_MOBILE_PWA_USERS";
+
+let users=JSON.parse(
+    localStorage.getItem(KEY)||"{}"
+);
+
+let currentUser=null;
+let db=null;
+let quoteIndex=0;
+let editingDreamId=null;
+
+let timerSeconds=600;
+let timerInterval=null;
+
+
+/* =====================================================
+DATABASE
+===================================================== */
+
+function newDatabase(password=""){
+
+    return{
+
+        password,
+
+        notes:[],
+
+        dreams:[],
+
+        goals:[],
+
+        events:[],
+
+        journal:"",
+
+        letter:{
+            title:"",
+            text:"",
+            date:""
+        },
+
+        settings:{
+            title:"دفتر ذهن من",
+            theme:"dark",
+            accent:"gold"
+        },
+
+        activity:{}
+
+    };
+}
+
+
+/* =====================================================
+QUOTES
+===================================================== */
+
+const quotes=[
+
+[
+"زندگی بررسی‌نشده ارزش زیستن ندارد.",
+"سقراط"
+],
+
+[
+"آن‌کس که چرایی برای زیستن دارد، با هر چگونگی خواهد ساخت.",
+"نیچه"
+],
+
+[
+"انسان محکوم به آزادی است.",
+"سارتر"
+],
+
+[
+"دانستن اینکه نمی‌دانی، آغاز دانایی است.",
+"سقراط"
+],
+
+[
+"پوچی پایان معنا نیست؛ آغاز پرسش است.",
+"کامو"
+],
+
+[
+"آرامش از جایی شروع می‌شود که کنترل چیزهای خارج از اختیارمان را رها کنیم.",
+"اپیکتتوس"
+]
+
+];
+
+
+/* =====================================================
+PHILOSOPHERS
+===================================================== */
+
+const philosophers=[
+
+["Σ","سقراط","پرسش، خودشناسی و زندگی بررسی‌شده."],
+
+["Π","افلاطون","حقیقت، عدالت و جهان ایده‌ها."],
+
+["Α","ارسطو","منطق، اخلاق و سعادت."],
+
+["N","نیچه","اراده، معنا و بازآفرینی انسان."],
+
+["S","سارتر","آزادی، انتخاب و مسئولیت."],
+
+["E","اپیکتتوس","رواقی‌گری و کنترل خویشتن."],
+
+["M","مارکوس اورلیوس","آرامش و پذیرش."],
+
+["C","کامو","پوچی و شور زندگی."]
+
+];
+
+
+/* =====================================================
+LOGIN
+===================================================== */
+
+function login(){
+
+    const name=document
+        .getElementById("username")
+        .value
+        .trim();
+
+    const password=document
+        .getElementById("password")
+        .value;
+
+    if(!name){
+
+        toast("لطفاً نام را وارد کن.");
+
+        return;
+    }
+
+    if(!users[name]){
+
+        users[name]=newDatabase(password);
+
+        saveUsers();
+
+    }else{
+
+        if(
+            users[name].password &&
+            users[name].password!==password
+        ){
+
+            toast("❌ رمز عبور اشتباه است.");
+
+            return;
+        }
+
+    }
+
+    currentUser=name;
+
+    db=users[name];
+
+    document
+        .getElementById("loginPage")
+        .classList.add("hidden");
+
+    document
+        .getElementById("app")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("currentUser")
+        .textContent=currentUser;
+
+    applyTheme();
+
+    renderAll();
+
+    toast(
+        "خوش آمدی "+currentUser+" ✨"
+    );
+}
+
+
+function saveUsers(){
+
+    localStorage.setItem(
+        KEY,
+        JSON.stringify(users)
+    );
+}
+
+
+function saveDB(){
+
+    if(!currentUser)return;
+
+    users[currentUser]=db;
+
+    saveUsers();
+}
+
+
+/* =====================================================
+LOGOUT
+===================================================== */
+
+function logout(){
+
+    saveDB();
+
+    currentUser=null;
+    db=null;
+
+    document
+        .getElementById("app")
+        .classList.add("hidden");
+
+    document
+        .getElementById("loginPage")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("username")
+        .value="";
+
+    document
+        .getElementById("password")
+        .value="";
+}
+
+
+/* =====================================================
+CLOCK
+===================================================== */
+
+function clock(){
+
+    const now=new Date();
+
+    document
+        .getElementById("clock")
+        .textContent=
+        now.toLocaleTimeString("fa-IR");
+
+    document
+        .getElementById("dateText")
+        .textContent=
+        now.toLocaleDateString(
+            "fa-IR",
+            {
+                weekday:"long",
+                year:"numeric",
+                month:"long",
+                day:"numeric"
+            }
+        );
+}
+
+setInterval(clock,1000);
+
+clock();
+
+
+/* =====================================================
+NAVIGATION
+===================================================== */
+
+function showPage(id,button){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(
+            p=>p.classList.remove("active")
+        );
+
+    const page=document.getElementById(id);
+
+    if(page)
+        page.classList.add("active");
+
+    document
+        .querySelectorAll(".menu button")
+        .forEach(
+            b=>b.classList.remove("active")
+        );
+
+    if(button)
+        button.classList.add("active");
+
+    pageSpecific(id);
+}
+
+
+function mobilePage(id,button){
+
+    showPage(id);
+
+    document
+        .querySelectorAll(".mobile-nav button")
+        .forEach(
+            b=>b.classList.remove("active")
+        );
+
+    button.classList.add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+function pageSpecific(id){
+
+    if(id==="statistics")
+        drawChart();
+
+    if(id==="mind")
+        buildMindMap();
+
+    if(id==="future")
+        renderFuture();
+
+    if(id==="story")
+        buildStory();
+
+    if(id==="letter")
+        loadLetter();
+}
+
+
+/* =====================================================
+QUOTES
+===================================================== */
+
+function showQuote(){
+
+    const q=quotes[quoteIndex];
+
+    document
+        .getElementById("quoteText")
+        .textContent=q[0];
+
+    document
+        .getElementById("quoteAuthor")
+        .textContent="— "+q[1];
+}
+
+
+function nextQuote(){
+
+    quoteIndex=
+        (quoteIndex+1)%quotes.length;
+
+    showQuote();
+}
+
+
+/* =====================================================
+NOTES
+===================================================== */
+
+function openNote(){
+
+    document
+        .getElementById("noteModal")
+        .classList.add("show");
+}
+
+
+function saveNote(){
+
+    const title=document
+        .getElementById("noteTitle")
+        .value.trim();
+
+    const text=document
+        .getElementById("noteText")
+        .value.trim();
+
+    if(!title||!text){
+
+        toast(
+            "عنوان و متن را وارد کن."
+        );
+
+        return;
+    }
+
+    db.notes.unshift({
+
+        id:Date.now(),
+
+        title,
+
+        text,
+
+        category:
+            document
+            .getElementById("noteCategory")
+            .value,
+
+        tags:
+            document
+            .getElementById("noteTags")
+            .value
+            .split(",")
+            .map(x=>x.trim())
+            .filter(Boolean),
+
+        hidden:false,
+
+        favorite:false,
+
+        date:new Date()
+            .toLocaleDateString("fa-IR")
+
+    });
+
+    activity();
+
+    saveDB();
+
+    closeModal("noteModal");
+
+    document.getElementById("noteTitle").value="";
+    document.getElementById("noteText").value="";
+    document.getElementById("noteTags").value="";
+
+    renderAll();
+
+    toast("📖 نوشته ذخیره شد.");
+}
+
+
+function renderNotes(){
+
+    const search=document
+        .getElementById("search")
+        .value
+        .toLowerCase();
+
+    const normal=db.notes.filter(
+        n=>
+            !n.hidden &&
+            (
+                n.title+
+                " "+
+                n.text+
+                " "+
+                n.tags.join(" ")
+            )
+            .toLowerCase()
+            .includes(search)
+    );
+
+    const hidden=db.notes.filter(
+        n=>n.hidden
+    );
+
+    document
+        .getElementById("allNotes")
+        .innerHTML=
+        normal.length
+        ?
+        normal.map(noteHTML).join("")
+        :
+        empty(
+            "📝",
+            "هنوز نوشته‌ای نداری."
+        );
+
+    document
+        .getElementById("allHiddenNotes")
+        .innerHTML=
+        hidden.length
+        ?
+        hidden.map(noteHTML).join("")
+        :
+        empty(
+            "🔓",
+            "نوشته مخفی نداری."
+        );
+
+    document
+        .getElementById("recentNotes")
+        .innerHTML=
+        db.notes
+            .filter(n=>!n.hidden)
+            .slice(0,5)
+            .map(noteHTML)
+            .join("")
+        ||
+        empty(
+            "📝",
+            "هنوز نوشته‌ای ثبت نکرده‌ای."
+        );
+}
+
+
+function noteHTML(n){
+
+    return`
+
+    <div
+        class="note"
+        onclick="noteAction(${n.id})"
+    >
+
+        <div class="note-title">
+
+            ${esc(n.title)}
+
+            ${n.favorite?" ⭐":""}
+
+            ${n.hidden?" 🔐":""}
+
+        </div>
+
+        <div class="note-preview">
+
+            ${esc(
+                n.text.slice(0,180)
+            )}
+
+            ${n.text.length>180?"...":""}
+
+        </div>
+
+        <div class="note-meta">
+
+            <span>
+                ${esc(n.category)}
+            </span>
+
+            <span>
+                ${n.tags.map(
+                    t=>"#"+esc(t)
+                ).join(" ")}
+            </span>
+
+            <span>
+                ${esc(n.date)}
+            </span>
+
+        </div>
+
+    </div>
+
+    `;
+}
+
+
+function noteAction(id){
+
+    const n=db.notes.find(
+        x=>x.id===id
+    );
+
+    if(!n)return;
+
+    const choice=prompt(
+
+`${n.title}
+
+1 = مشاهده
+2 = ویرایش
+3 = مخفی / نمایش
+4 = علاقه‌مندی
+5 = حذف دائمی
+
+گزینه:`
+
+    );
+
+    if(choice==="1"){
+
+        alert(
+            n.title+
+            "\n\n"+
+            n.text
+        );
+
+    }
+
+    if(choice==="2"){
+
+        const title=prompt(
+            "عنوان:",
+            n.title
+        );
+
+        if(title!==null)
+            n.title=title;
+
+        const text=prompt(
+            "متن:",
+            n.text
+        );
+
+        if(text!==null)
+            n.text=text;
+
+        saveDB();
+        renderAll();
+
+    }
+
+    if(choice==="3"){
+
+        n.hidden=!n.hidden;
+
+        saveDB();
+        renderAll();
+
+        toast(
+            n.hidden
+            ?
+            "🔐 نوشته مخفی شد."
+            :
+            "👁️ نوشته نمایش داده شد."
+        );
+    }
+
+    if(choice==="4"){
+
+        n.favorite=!n.favorite;
+
+        saveDB();
+        renderAll();
+    }
+
+    if(choice==="5"){
+
+        if(confirm(
+            "حذف دائمی نوشته؟"
+        )){
+
+            db.notes=db.notes.filter(
+                x=>x.id!==id
+            );
+
+            saveDB();
+            renderAll();
+        }
+    }
+}
+
+
+/* =====================================================
+DREAMS
+===================================================== */
+
+function openDream(id=null){
+
+    editingDreamId=id;
+
+    if(id){
+
+        const d=db.dreams.find(
+            x=>x.id===id
+        );
+
+        if(!d)return;
+
+        document
+            .getElementById("dreamModalTitle")
+            .textContent=
+            "✏️ ویرایش آرزو";
+
+        document
+            .getElementById("dreamTitle")
+            .value=d.title;
+
+        document
+            .getElementById("dreamDate")
+            .value=d.date||"";
+
+        document
+            .getElementById("dreamDescription")
+            .value=d.description||"";
+
+        document
+            .getElementById("dreamProgress")
+            .value=d.progress;
+
+        document
+            .getElementById("progressValue")
+            .textContent=d.progress;
+
+    }else{
+
+        document
+            .getElementById("dreamModalTitle")
+            .textContent=
+            "✨ آرزوی جدید";
+
+        document
+            .getElementById("dreamTitle")
+            .value="";
+
+        document
+            .getElementById("dreamDate")
+            .value="";
+
+        document
+            .getElementById("dreamDescription")
+            .value="";
+
+        document
+            .getElementById("dreamProgress")
+            .value=0;
+
+        document
+            .getElementById("progressValue")
+            .textContent="0";
+    }
+
+    document
+        .getElementById("dreamModal")
+        .classList.add("show");
+}
+
+
+function saveDream(){
+
+    const title=document
+        .getElementById("dreamTitle")
+        .value.trim();
+
+    if(!title){
+
+        toast(
+            "عنوان آرزو را وارد کن."
+        );
+
+        return;
+    }
+
+    const data={
+
+        title,
+
+        date:
+            document
+            .getElementById("dreamDate")
+            .value,
+
+        description:
+            document
+            .getElementById("dreamDescription")
+            .value,
+
+        progress:Number(
+            document
+            .getElementById("dreamProgress")
+            .value
+        )
+
+    };
+
+    data.completed=
+        data.progress>=100;
+
+    if(editingDreamId){
+
+        const d=db.dreams.find(
+            x=>x.id===editingDreamId
+        );
+
+        Object.assign(d,data);
+
+        toast(
+            "✏️ آرزو ویرایش شد."
+        );
+
+    }else{
+
+        db.dreams.push({
+
+            id:Date.now(),
+
+            ...data
+
+        });
+
+        activity();
+
+        toast(
+            "✨ آرزو ثبت شد."
+        );
+    }
+
+    saveDB();
+
+    closeModal("dreamModal");
+
+    renderAll();
+
+    editingDreamId=null;
+}
+
+
+function dreamHTML(d){
+
+    return`
+
+    <div class="dream">
+
+        <h3>
+            ${esc(d.title)}
+        </h3>
+
+        <p>
+            ${esc(
+                d.description||
+                "بدون توضیح"
+            )}
+        </p>
+
+        <div class="progress">
+            <i
+                style="width:${d.progress}%"
+            ></i>
+        </div>
+
+        <b>
+            ${d.progress}%
+        </b>
+
+        <p>
+            ${
+                d.date
+                ?
+                "🎯 هدف: "+esc(d.date)
+                :
+                "بدون تاریخ هدف"
+            }
+        </p>
+
+        <button
+            class="btn secondary"
+            onclick="openDream(${d.id})"
+        >
+            ✏️ ویرایش
+        </button>
+
+        <button
+            class="btn"
+            onclick="manageDream(${d.id})"
+        >
+            ⚙️ مدیریت
+        </button>
+
+    </div>
+
+    `;
+}
+
+
+function manageDream(id){
+
+    const d=db.dreams.find(
+        x=>x.id===id
+    );
+
+    if(!d)return;
+
+    const choice=prompt(
+
+`${d.title}
+
+پیشرفت: ${d.progress}%
+
+1 = تغییر درصد
+2 = محقق شد
+3 = بازگردانی
+4 = حذف
+
+گزینه:`
+
+    );
+
+    if(choice==="1"){
+
+        let p=Number(
+            prompt(
+                "درصد جدید:",
+                d.progress
+            )
+        );
+
+        if(Number.isNaN(p))
+            return;
+
+        p=Math.max(
+            0,
+            Math.min(100,p)
+        );
+
+        d.progress=p;
+
+        d.completed=
+            p>=100;
+    }
+
+    if(choice==="2"){
+
+        d.progress=100;
+        d.completed=true;
+
+        toast(
+            "🏆 آرزو محقق شد!"
+        );
+    }
+
+    if(choice==="3"){
+
+        d.completed=false;
+
+        if(d.progress>=100)
+            d.progress=99;
+    }
+
+    if(choice==="4"){
+
+        if(confirm(
+            "این آرزو حذف شود؟"
+        )){
+
+            db.dreams=db.dreams.filter(
+                x=>x.id!==id
+            );
+
+        }else{
+            return;
+        }
+    }
+
+    saveDB();
+    renderAll();
+}
+
+
+/* =====================================================
+DREAM RENDER
+===================================================== */
+
+function renderDreams(){
+
+    const active=db.dreams.filter(
+        d=>!d.completed
+    );
+
+    const completed=db.dreams.filter(
+        d=>d.completed
+    );
+
+    document
+        .getElementById("dreamList")
+        .innerHTML=
+        active.length
+        ?
+        active.map(dreamHTML).join("")
+        :
+        empty(
+            "✨",
+            "هنوز آرزویی ثبت نکرده‌ای."
+        );
+
+    document
+        .getElementById("completedDreams")
+        .innerHTML=
+        completed.length
+        ?
+        completed.map(dreamHTML).join("")
+        :
+        empty(
+            "🏆",
+            "هنوز آرزوی محقق‌شده‌ای نداری."
+        );
+
+    document
+        .getElementById("todayDream")
+        .innerHTML=
+        active[0]
+        ?
+        dreamHTML(active[0])
+        :
+        empty(
+            "✨",
+            "یک آرزو ثبت کن."
+        );
+}
+
+
+/* =====================================================
+GOALS
+===================================================== */
+
+function addGoal(){
+
+    const text=prompt(
+        "هدف جدید:"
+    );
+
+    if(!text)return;
+
+    db.goals.push({
+
+        id:Date.now(),
+
+        text,
+
+        completed:false,
+
+        date:new Date()
+            .toLocaleDateString("fa-IR")
+
+    });
+
+    activity();
+
+    saveDB();
+
+    renderAll();
+}
+
+
+function renderGoals(){
+
+    if(!db.goals.length){
+
+        document
+            .getElementById("goalList")
+            .innerHTML=
+            empty(
+                "🎯",
+                "هنوز هدفی ثبت نکرده‌ای."
+            );
+
+        return;
+    }
+
+    document
+        .getElementById("goalList")
+        .innerHTML=
+
+        db.goals.map(
+            g=>`
+
+            <div
+                class="goal-card"
+                onclick="goalAction(${g.id})"
+                style="margin-bottom:10px"
+            >
+
+                <h3>
+                    ${g.completed?"✅":"⬜"}
+                    ${esc(g.text)}
+                </h3>
+
+                <div class="progress">
+
+                    <i
+                        style="width:${g.completed?100:0}%"
+                    ></i>
+
+                </div>
+
+                <small
+                    style="color:var(--muted)"
+                >
+                    ${esc(g.date)}
+                </small>
+
+            </div>
+
+            `
+        ).join("");
+}
+
+
+function goalAction(id){
+
+    const g=db.goals.find(
+        x=>x.id===id
+    );
+
+    if(!g)return;
+
+    const choice=prompt(
+
+`${g.text}
+
+1 = تکمیل / بازگردانی
+2 = ویرایش
+3 = حذف
+
+گزینه:`
+
+    );
+
+    if(choice==="1")
+        g.completed=!g.completed;
+
+    if(choice==="2"){
+
+        const text=prompt(
+            "هدف:",
+            g.text
+        );
+
+        if(text!==null)
+            g.text=text;
+    }
+
+    if(choice==="3"){
+
+        if(confirm(
+            "حذف هدف؟"
+        )){
+
+            db.goals=db.goals.filter(
+                x=>x.id!==id
+            );
+
+        }else{
+            return;
+        }
+    }
+
+    saveDB();
+    renderAll();
+}
+
+
+/* =====================================================
+JOURNAL
+===================================================== */
+
+function saveJournal(){
+
+    db.journal=
+        document
+        .getElementById("journalText")
+        .value;
+
+    activity();
+
+    saveDB();
+
+    toast(
+        "✍️ روز ذخیره شد."
+    );
+}
+
+
+/* =====================================================
+TIMELINE
+===================================================== */
+
+function addEvent(){
+
+    const title=prompt(
+        "عنوان اتفاق:"
+    );
+
+    if(!title)return;
+
+    const text=prompt(
+        "توضیح:"
+    )||"";
+
+    db.events.push({
+
+        id:Date.now(),
+
+        title,
+
+        text,
+
+        date:new Date()
+            .toLocaleDateString("fa-IR")
+
+    });
+
+    activity();
+
+    saveDB();
+
+    renderAll();
+}
+
+
+function renderTimeline(){
+
+    let events=[
+        ...db.events
+    ];
+
+    db.notes.forEach(
+        n=>{
+            events.push({
+
+                id:"n"+n.id,
+
+                title:"📖 "+n.title,
+
+                text:n.text,
+
+                date:n.date
+
+            });
+        }
+    );
+
+    db.dreams.forEach(
+        d=>{
+            events.push({
+
+                id:"d"+d.id,
+
+                title:"✨ "+d.title,
+
+                text:
+                    "پیشرفت آرزو: "+
+                    d.progress+"%",
+
+                date:
+                    d.date||"بدون تاریخ"
+
+            });
+        }
+    );
+
+    document
+        .getElementById("timelineList")
+        .innerHTML=
+        events.length
+        ?
+        events.map(
+            e=>`
+
+            <div class="event">
+
+                <b>
+                    ${esc(e.title)}
+                </b>
+
+                <p>
+                    ${esc(
+                        String(e.text)
+                        .slice(0,180)
+                    )}
+                </p>
+
+                <small>
+                    ${esc(e.date)}
+                </small>
+
+            </div>
+
+            `
+        ).join("")
+        :
+        empty(
+            "🕰️",
+            "هنوز رویدادی ثبت نشده."
+        );
+}
+
+
+/* =====================================================
+STORY
+===================================================== */
+
+function buildStory(){
+
+    const container=
+        document
+        .getElementById("storyContent");
+
+    let items=[];
+
+    db.events.forEach(
+        e=>items.push({
+
+            date:e.date,
+            title:e.title,
+            text:e.text
+
+        })
+    );
+
+    db.notes.forEach(
+        n=>items.push({
+
+            date:n.date,
+            title:n.title,
+            text:n.text
+
+        })
+    );
+
+    db.dreams.forEach(
+        d=>items.push({
+
+            date:d.date||"یک روز",
+
+            title:
+                "آرزوی "+d.title,
+
+            text:
+                "این آرزو اکنون "+
+                d.progress+
+                "% مسیر خود را طی کرده است."
+
+        })
+    );
+
+    if(!items.length){
+
+        container.innerHTML=
+            empty(
+                "📜",
+                "هنوز داستانی برای روایت وجود ندارد."
+            );
+
+        return;
+    }
+
+    container.innerHTML=
+
+    `
+
+    <div
+        style="
+            text-align:center;
+            padding:20px;
+            margin-bottom:15px
+        "
+    >
+
+        <h2>
+            داستان ${esc(currentUser)}
+        </h2>
+
+        <p class="sub">
+            اینجا زندگی دیجیتال تو از میان
+            نوشته‌ها، آرزوها و اتفاق‌ها روایت می‌شود.
+        </p>
+
+    </div>
+
+    `+
+
+    items.map(
+        (x,i)=>`
+
+        <div class="story-line">
+
+            <small>
+                فصل ${i+1} • ${esc(x.date)}
+            </small>
+
+            <h3>
+                ${esc(x.title)}
+            </h3>
+
+            <div>
+                ${esc(x.text)}
+            </div>
+
+        </div>
+
+        `
+    ).join("");
+}
+
+
+/* =====================================================
+FUTURE
+===================================================== */
+
+function renderFuture(){
+
+    const active=
+        db.goals.filter(
+            g=>!g.completed
+        ).length;
+
+    const dreams=
+        db.dreams.filter(
+            d=>!d.completed
+        ).length;
+
+    const done=
+        db.dreams.filter(
+            d=>d.completed
+        ).length;
+
+    document
+        .getElementById("futureContent")
+        .innerHTML=
+
+    `
+
+    <div class="future-card">
+
+        <h3>
+            🌌 تصویری از آینده
+        </h3>
+
+        <p>
+            ${esc(currentUser)}،
+            آینده تو از تصمیم‌های کوچک امروز ساخته می‌شود.
+        </p>
+
+    </div>
+
+    <div class="cards">
+
+        <div class="future-card">
+
+            <h3>
+                🎯 اهداف باقی‌مانده
+            </h3>
+
+            <div class="timer-display">
+                ${active}
+            </div>
+
+        </div>
+
+        <div class="future-card">
+
+            <h3>
+                ✨ آرزوهای در مسیر
+            </h3>
+
+            <div class="timer-display">
+                ${dreams}
+            </div>
+
+        </div>
+
+        <div class="future-card">
+
+            <h3>
+                🏆 آرزوهای محقق‌شده
+            </h3>
+
+            <div class="timer-display">
+                ${done}
+            </div>
+
+        </div>
+
+    </div>
+
+    `;
+}
+
+
+/* =====================================================
+LETTER
+===================================================== */
+
+function loadLetter(){
+
+    document
+        .getElementById("futureLetter")
+        .value=
+        db.letter.text||"";
+
+    document
+        .getElementById("letterTitle")
+        .value=
+        db.letter.title||"";
+
+    document
+        .getElementById("letterDate")
+        .value=
+        db.letter.date||"";
+}
+
+
+function saveFutureLetter(){
+
+    db.letter={
+
+        title:
+            document
+            .getElementById("letterTitle")
+            .value,
+
+        text:
+            document
+            .getElementById("futureLetter")
+            .value,
+
+        date:
+            document
+            .getElementById("letterDate")
+            .value
+
+    };
+
+    saveDB();
+
+    toast(
+        "💌 نامه برای آینده ذخیره شد."
+    );
+}
+
+
+/* =====================================================
+MIND MAP
+===================================================== */
+
+function buildMindMap(){
+
+    const box=
+        document
+        .getElementById("mindMap");
+
+    box.innerHTML="";
+
+    const words=[
+
+        "من",
+
+        ...db.notes.flatMap(
+            n=>[
+                n.title,
+                ...n.tags
+            ]
+        ),
+
+        ...db.dreams.map(
+            d=>d.title
+        ),
+
+        ...db.goals.map(
+            g=>g.text
+        )
+
+    ];
+
+    const unique=[
+        ...new Set(words)
+    ]
+    .filter(Boolean)
+    .slice(1,15);
+
+    const cx=
+        box.clientWidth/2;
+
+    const cy=
+        box.clientHeight/2;
+
+    const radius=
+        Math.min(cx,cy)*.68;
+
+    createNode(
+        "من",
+        cx,
+        cy,
+        box
+    );
+
+    unique.forEach(
+        (word,i)=>{
+
+            const angle=
+                i*
+                Math.PI*2/
+                unique.length;
+
+            const x=
+                cx+
+                Math.cos(angle)*
+                radius;
+
+            const y=
+                cy+
+                Math.sin(angle)*
+                radius;
+
+            createLink(
+                cx,
+                cy,
+                x,
+                y,
+                box
+            );
+
+            createNode(
+                word,
+                x,
+                y,
+                box
+            );
+
+        }
+    );
+}
+
+
+function createNode(
+    text,
+    x,
+    y,
+    box
+){
+
+    const node=
+        document.createElement("div");
+
+    node.className="node";
+
+    node.textContent=text;
+
+    node.style.left=x+"px";
+
+    node.style.top=y+"px";
+
+    box.appendChild(node);
+
+    dragNode(node,box);
+}
+
+
+function createLink(
+    x1,
+    y1,
+    x2,
+    y2,
+    box
+){
+
+    const line=
+        document.createElement("div");
+
+    line.className="link";
+
+    const dx=x2-x1;
+    const dy=y2-y1;
+
+    const length=
+        Math.hypot(dx,dy);
+
+    line.style.width=
+        length+"px";
+
+    line.style.left=x1+"px";
+
+    line.style.top=y1+"px";
+
+    line.style.transform=
+        `rotate(${Math.atan2(dy,dx)}rad)`;
+
+    box.appendChild(line);
+}
+
+
+function dragNode(node,box){
+
+    let dragging=false;
+
+    node.addEventListener(
+        "pointerdown",
+        e=>{
+
+            dragging=true;
+
+            node.setPointerCapture(
+                e.pointerId
+            );
+        }
+    );
+
+    node.addEventListener(
+        "pointermove",
+        e=>{
+
+            if(!dragging)return;
+
+            const rect=
+                box.getBoundingClientRect();
+
+            node.style.left=
+                (
+                    e.clientX-
+                    rect.left
+                )+"px";
+
+            node.style.top=
+                (
+                    e.clientY-
+                    rect.top
+                )+"px";
+        }
+    );
+
+    node.addEventListener(
+        "pointerup",
+        ()=>{
+            dragging=false;
+        }
+    );
+}
+
+
+/* =====================================================
+PHILOSOPHERS
+===================================================== */
+
+function renderPhilosophers(){
+
+    document
+        .getElementById("philosopherList")
+        .innerHTML=
+
+        philosophers.map(
+            p=>`
+
+            <div class="dream">
+
+                <div class="avatar">
+                    ${p[0]}
+                </div>
+
+                <h3>
+                    ${p[1]}
+                </h3>
+
+                <p>
+                    ${p[2]}
+                </p>
+
+            </div>
+
+            `
+        ).join("");
+}
+
+
+/* =====================================================
+ACTIVITY
+===================================================== */
+
+function activity(){
+
+    const key=
+        new Date()
+        .toISOString()
+        .slice(0,10);
+
+    db.activity[key]=
+        (db.activity[key]||0)+1;
+}
+
+
+/* =====================================================
+STATS
+===================================================== */
+
+function updateStats(){
+
+    document
+        .getElementById("statNotes")
+        .textContent=
+        db.notes.length;
+
+    document
+        .getElementById("statDreams")
+        .textContent=
+        db.dreams.filter(
+            d=>!d.completed
+        ).length;
+
+    document
+        .getElementById("statDoneDreams")
+        .textContent=
+        db.dreams.filter(
+            d=>d.completed
+        ).length;
+
+    document
+        .getElementById("statGoals")
+        .textContent=
+        db.goals.length;
+
+    document
+        .getElementById("statFavorites")
+        .textContent=
+        db.notes.filter(
+            n=>n.favorite
+        ).length;
+
+    document
+        .getElementById("statDays")
+        .textContent=
+        Object.keys(
+            db.activity
+        ).length;
+}
+
+
+/* =====================================================
+ACHIEVEMENTS
+===================================================== */
+
+function renderAchievements(){
+
+    const list=[
+
+        [
+            "📝",
+            "اولین نوشته",
+            db.notes.length>=1
+        ],
+
+        [
+            "📚",
+            "۵ نوشته",
+            db.notes.length>=5
+        ],
+
+        [
+            "🧠",
+            "۱۰ نوشته",
+            db.notes.length>=10
+        ],
+
+        [
+            "✨",
+            "اولین آرزو",
+            db.dreams.length>=1
+        ],
+
+        [
+            "🏆",
+            "اولین آرزوی محقق‌شده",
+            db.dreams.some(
+                d=>d.completed
+            )
+        ],
+
+        [
+            "🎯",
+            "۳ هدف",
+            db.goals.length>=3
+        ],
+
+        [
+            "⭐",
+            "نوشته منتخب",
+            db.notes.some(
+                n=>n.favorite
+            )
+        ],
+
+        [
+            "🔥",
+            "۷ روز فعال",
+            Object.keys(
+                db.activity
+            ).length>=7
+        ]
+
+    ];
+
+    document
+        .getElementById("achievementList")
+        .innerHTML=
+
+        list.map(
+            a=>`
+
+            <div
+                class="badge
+                ${a[2]?"active":""}"
+            >
+
+                <div style="font-size:28px">
+                    ${a[0]}
+                </div>
+
+                <strong>
+                    ${a[1]}
+                </strong>
+
+                <small>
+                    ${a[2]?"باز شده":"قفل است"}
+                </small>
+
+            </div>
+
+            `
+        ).join("");
+}
+
+
+/* =====================================================
+CHART
+===================================================== */
+
+function drawChart(){
+
+    const canvas=
+        document.getElementById("chart");
+
+    const ctx=
+        canvas.getContext("2d");
+
+    const width=canvas.width;
+    const height=canvas.height;
+
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+    const values=[];
+    const labels=[];
+
+    for(let i=6;i>=0;i--){
+
+        const d=new Date();
+
+        d.setDate(
+            d.getDate()-i
+        );
+
+        const key=
+            d.toISOString()
+            .slice(0,10);
+
+        values.push(
+            db.activity[key]||0
+        );
+
+        labels.push(
+            d.toLocaleDateString(
+                "fa-IR",
+                {
+                    weekday:"short"
+                }
+            )
+        );
+    }
+
+    const max=Math.max(
+        1,
+        ...values
+    );
+
+    const padding=55;
+
+    ctx.strokeStyle="#777";
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        padding,
+        height-padding
+    );
+
+    ctx.lineTo(
+        width-padding,
+        height-padding
+    );
+
+    ctx.stroke();
+
+    ctx.strokeStyle=
+        "#d8ad58";
+
+    ctx.lineWidth=4;
+
+    ctx.beginPath();
+
+    values.forEach(
+        (v,i)=>{
+
+            const x=
+                padding+
+                i*
+                (width-padding*2)/6;
+
+            const y=
+                height-padding-
+                v/max*
+                (height-padding*2);
+
+            if(i===0)
+                ctx.moveTo(x,y);
+            else
+                ctx.lineTo(x,y);
+
+            ctx.fillStyle=
+                "#d8ad58";
+
+            ctx.fillRect(
+                x-4,
+                y-4,
+                8,
+                8
+            );
+
+            ctx.fillStyle="#888";
+
+            ctx.font=
+                "13px Tahoma";
+
+            ctx.fillText(
+                labels[i],
+                x-15,
+                height-20
+            );
+        }
+    );
+
+    ctx.stroke();
+}
+
+
+/* =====================================================
+TIMER
+===================================================== */
+
+function updateTimer(){
+
+    const min=
+        Math.floor(
+            timerSeconds/60
+        );
+
+    const sec=
+        timerSeconds%60;
+
+    document
+        .getElementById("timerDisplay")
+        .textContent=
+
+        String(min)
+        .padStart(2,"0")
+        +
+        ":"
+        +
+        String(sec)
+        .padStart(2,"0");
+}
+
+
+function startTimer(){
+
+    if(timerInterval)return;
+
+    timerInterval=
+        setInterval(
+            ()=>{
+
+                if(timerSeconds<=0){
+
+                    clearInterval(
+                        timerInterval
+                    );
+
+                    timerInterval=null;
+
+                    toast(
+                        "⏳ زمان تمام شد."
+                    );
+
+                    return;
+                }
+
+                timerSeconds--;
+
+                updateTimer();
+
+            },
+            1000
+        );
+}
+
+
+function resetTimer(){
+
+    clearInterval(
+        timerInterval
+    );
+
+    timerInterval=null;
+
+    timerSeconds=600;
+
+    updateTimer();
+}
+
+
+/* =====================================================
+THEME
+===================================================== */
+
+function toggleTheme(){
+
+    db.settings.theme=
+        db.settings.theme==="light"
+        ?
+        "dark"
+        :
+        "light";
+
+    applyTheme();
+
+    saveDB();
+}
+
+
+function applyTheme(){
+
+    document
+        .body
+        .classList
+        .toggle(
+            "light",
+            db.settings.theme==="light"
+        );
+
+    applyAccent();
+}
+
+
+function applyAccent(){
+
+    const colors={
+
+        gold:"#d8ad58",
+        blue:"#76a9e8",
+        green:"#65d49d",
+        red:"#e27676"
+
+    };
+
+    const color=
+        colors[
+            db.settings.accent
+        ]||colors.gold;
+
+    document
+        .documentElement
+        .style
+        .setProperty(
+            "--gold",
+            color
+        );
+
+    document
+        .documentElement
+        .style
+        .setProperty(
+            "--gold2",
+            color
+        );
+}
+
+
+/* =====================================================
+SETTINGS
+===================================================== */
+
+function openSettings(){
+
+    document
+        .getElementById("bookTitle")
+        .value=
+        db.settings.title;
+
+    document
+        .getElementById("accentColor")
+        .value=
+        db.settings.accent||"gold";
+
+    document
+        .getElementById("newPassword")
+        .value="";
+
+    document
+        .getElementById("settingsModal")
+        .classList
+        .add("show");
+}
+
+
+function saveSettings(){
+
+    db.settings.title=
+        document
+        .getElementById("bookTitle")
+        .value
+        .trim()
+        ||
+        "دفتر ذهن من";
+
+    db.settings.accent=
+        document
+        .getElementById("accentColor")
+        .value;
+
+    applyAccent();
+
+    saveDB();
+
+    document
+        .getElementById("pageTitle")
+        .textContent=
+        db.settings.title;
+
+    closeModal(
+        "settingsModal"
+    );
+
+    toast(
+        "⚙️ تنظیمات ذخیره شد."
+    );
+}
+
+
+function changePassword(){
+
+    const p=
+        document
+        .getElementById("newPassword")
+        .value;
+
+    db.password=p;
+
+    saveDB();
+
+    document
+        .getElementById("newPassword")
+        .value="";
+
+    toast(
+        p
+        ?
+        "🔐 رمز فعال شد."
+        :
+        "🔓 حساب بدون رمز شد."
+    );
+}
+
+
+function removePassword(){
+
+    if(!confirm(
+        "رمز حذف شود؟"
+    ))
+        return;
+
+    db.password="";
+
+    saveDB();
+
+    toast(
+        "🔓 رمز حذف شد."
+    );
+}
+
+
+/* =====================================================
+BACKUP
+===================================================== */
+
+function backup(){
+
+    const blob=
+        new Blob(
+            [
+                JSON.stringify(
+                    db,
+                    null,
+                    2
+                )
+            ],
+            {
+                type:
+                    "application/json"
+            }
+        );
+
+    const a=
+        document.createElement("a");
+
+    a.href=
+        URL.createObjectURL(blob);
+
+    a.download=
+        "PHILOSOPHER-"+
+        currentUser+
+        "-BACKUP.json";
+
+    a.click();
+
+    URL.revokeObjectURL(a.href);
+
+    toast(
+        "📤 Backup ساخته شد."
+    );
+}
+
+
+function restore(event){
+
+    const file=
+        event.target.files[0];
+
+    if(!file)return;
+
+    const reader=
+        new FileReader();
+
+    reader.onload=()=>{
+
+        try{
+
+            db=
+                JSON.parse(
+                    reader.result
+                );
+
+            saveDB();
+
+            renderAll();
+
+            toast(
+                "📥 اطلاعات بازیابی شد."
+            );
+
+        }catch{
+
+            toast(
+                "❌ فایل معتبر نیست."
+            );
+        }
+    };
+
+    reader.readAsText(file);
+}
+
+
+/* =====================================================
+SEARCH
+===================================================== */
+
+function renderSearch(){
+
+    const query=
+        document
+        .getElementById("search")
+        .value
+        .toLowerCase()
+        .trim();
+
+    if(!query){
+
+        renderNotes();
+
+        return;
+    }
+
+    const results=[];
+
+    db.notes.forEach(
+        n=>{
+
+            if(
+                (
+                    n.title+
+                    " "+
+                    n.text+
+                    " "+
+                    n.tags.join(" ")
+                )
+                .toLowerCase()
+                .includes(query)
+            ){
+
+                results.push(
+                    "📖 "+n.title
+                );
+            }
+        }
+    );
+
+    db.dreams.forEach(
+        d=>{
+
+            if(
+                (
+                    d.title+
+                    " "+
+                    d.description
+                )
+                .toLowerCase()
+                .includes(query)
+            ){
+
+                results.push(
+                    "✨ "+d.title
+                );
+            }
+        }
+    );
+
+    db.goals.forEach(
+        g=>{
+
+            if(
+                g.text
+                .toLowerCase()
+                .includes(query)
+            ){
+
+                results.push(
+                    "🎯 "+g.text
+                );
+            }
+        }
+    );
+
+    if(
+        document
+        .getElementById("notes")
+        .classList
+        .contains("active")
+    ){
+
+        document
+            .getElementById("allNotes")
+            .innerHTML=
+
+            results.length
+
+            ?
+
+            results.map(
+                x=>`
+
+                <div class="note">
+                    ${esc(x)}
+                </div>
+
+                `
+            ).join("")
+
+            :
+
+            empty(
+                "🔎",
+                "چیزی پیدا نشد."
+            );
+    }
+}
+
+
+/* =====================================================
+HELPERS
+===================================================== */
+
+function closeModal(id){
+
+    document
+        .getElementById(id)
+        .classList
+        .remove("show");
+}
+
+
+function empty(icon,text){
+
+    return`
+
+    <div
+        style="
+            text-align:center;
+            padding:35px;
+            color:var(--muted);
+            line-height:2
+        "
+    >
+
+        ${icon}
+
+        <br>
+
+        ${text}
+
+    </div>
+
+    `;
+}
+
+
+function esc(text){
+
+    return String(text||"")
+        .replace(
+            /[&<>"']/g,
+            c=>({
+
+                "&":"&amp;",
+                "<":"&lt;",
+                ">":"&gt;",
+                '"':"&quot;",
+                "'":"&#039;"
+
+            })[c]
+        );
+}
+
+
+/* =====================================================
+RENDER ALL
+===================================================== */
+
+function renderAll(){
+
+    document
+        .getElementById("pageTitle")
+        .textContent=
+        db.settings.title;
+
+    document
+        .getElementById("journalText")
+        .value=
+        db.journal||"";
+
+    renderNotes();
+
+    renderDreams();
+
+    renderGoals();
+
+    renderTimeline();
+
+    renderPhilosophers();
+
+    renderAchievements();
+
+    updateStats();
+
+    showQuote();
+
+    updateTimer();
+
+    renderFuture();
+
+    loadLetter();
+}
+
+
+/* =====================================================
+LOGIN ENTER
+===================================================== */
+
+document
+    .getElementById("password")
+    .addEventListener(
+        "keydown",
+        e=>{
+            if(e.key==="Enter")
+                login();
+        }
+    );
+
+
+/* =====================================================
+PWA INSTALL
+===================================================== */
+
+let deferredPrompt=null;
+
+window.addEventListener(
+    "beforeinstallprompt",
+    e=>{
+
+        e.preventDefault();
+
+        deferredPrompt=e;
+
+        console.log(
+            "PHILOSOPHER آماده نصب است."
+        );
+    }
+);
+
+
+/* =====================================================
+SERVICE WORKER
+===================================================== */
+
+if(
+    "serviceWorker" in navigator
+){
+
+    window.addEventListener(
+        "load",
+        ()=>{
+            navigator.serviceWorker
+                .register("./sw.js")
+                .then(
+                    ()=>console.log(
+                        "PWA Service Worker فعال شد."
+                    )
+                )
+                .catch(
+                    err=>console.log(
+                        "SW:",
+                        err
+                    )
+                );
+        }
+    );
+}
+
+</script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js");
+    });
+}
+</body>
+</html>
